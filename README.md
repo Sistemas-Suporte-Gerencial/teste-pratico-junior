@@ -3,7 +3,7 @@
 ----------
 
 ## Introdução
-Este teste tem o objetivo de avaliar novos candidatos às vagas de desenvolvedores PHP.
+Este teste tem o objetivo de avaliar novos candidatos às vagas de desenvolvedores.
 Basicamente o teste resume-se no desenvolvimento de um CRUD.
 
 ## Objetivos
