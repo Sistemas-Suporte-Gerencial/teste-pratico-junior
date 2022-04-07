@@ -11,7 +11,7 @@ Basicamente o teste resume-se no desenvolvimento de um CRUD.
 - Saber como trabalha com versionamento de código
 - Você deve utilizar o seguinte stack:
     - HTML, CSS, JS
-    - PHP
+    - PHP ou NODE
     - Composer
     - Caso prefira utilizar algum framework, utilize o Laravel
     - Banco de Dados (PostgreSQL)
@@ -60,6 +60,10 @@ Basicamente o teste resume-se no desenvolvimento de um CRUD.
 
 ## Considerações
 - Seja criativo
+
+## Diferenciais:
+  - Docker
+  - AWS
 
 ## Entrega
 >**Você deve criar um fork do repositório no seu GitHub e subir seu código lá,**   
