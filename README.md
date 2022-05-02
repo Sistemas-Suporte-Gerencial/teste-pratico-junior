@@ -1,10 +1,9 @@
-# Teste prático - Dev PHP Junior
+# Teste prático - Dev Junior
 
 ----------
 
 ## Introdução
 Este teste tem o objetivo de avaliar novos candidatos às vagas de desenvolvedores.
-Basicamente o teste resume-se no desenvolvimento de um CRUD.
 
 ## Objetivos
 - Conhecer sobre suas habilidades e sua maneira de trabalho.
