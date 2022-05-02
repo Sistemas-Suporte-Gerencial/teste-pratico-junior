@@ -8,14 +8,14 @@ Este teste tem o objetivo de avaliar novos candidatos às vagas de desenvolvedor
 ## Objetivos
 - Conhecer sobre suas habilidades e sua maneira de trabalho.
 - Saber como trabalha com versionamento de código
+
+## Requisitos
 - Você deve utilizar o seguinte stack:
     - HTML, CSS, JS
     - PHP ou NODE
-    - Composer
+    - Composer 
     - Caso prefira utilizar algum framework, utilize o Laravel
     - Banco de Dados (PostgreSQL)
-
-## Requisitos
 - Cadastro de usuários
     - Nome
     - Login
