@@ -33,9 +33,9 @@ Este teste tem o objetivo de avaliar novos candidatos às vagas de desenvolvedor
 - Utilizar WebService dos Correios para carregar endereço a partir do CEP
 - O nome da empresa deve ter, no mínimo, 5 caracteres
 - Faça alguma validação para não permitir o cadastro dos e-mails:
-  - 'lucas.ferreira@suportegerencial.com.br'
-  - 'douglas.santos@suportegerencial.com.br'
-  - 'jonathas.almeida@suportegerencial.com.br'
+  - 'email1@suportegerencial.com.br'
+  - 'email2@suportegerencial.com.br'
+  - 'email3@suportegerencial.com.br'
 - Listar as empresas cadastradas
     - Ao clicar em uma empresa, redirecionar para uma tela com as informações da mesma.
 - Editar os dados da empresa.
