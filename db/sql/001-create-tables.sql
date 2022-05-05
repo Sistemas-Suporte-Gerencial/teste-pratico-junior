@@ -213,7 +213,7 @@ CREATE TABLE `sys_usuario` (
 --
 
 INSERT INTO `sys_usuario` (`usu_cod`, `usu_nome`, `usu_senha`, `usu_empId`, `usu_dpId`, `usu_classeId`, `usu_email`, `usu_ativo`, `usu_online`, `usu_foto`, `usu_datacad`, `usu_datades`, `usu_chapa`, `usu_sexo`, `usu_ramal`, `usu_cel`, `usu_dashId`, `usu_mnutopId`, `usu_pagId`, `usu_usucadId`, `usu_pmail`, `usu_pchat`, `usu_pcalend`, `usu_prelatorio`) VALUES
-(1, 'Elvis Leite', '4badaee57fed5610012a296273158f5f', 1, 2, 1, 'admin@suportegerencial.com.br', '1', '0', '/images/perfil/Elv_1.png', '2022-01-12 03:00:00', '2021-02-16 03:00:00', '1103', 'M', '7445', '(11)9 4749-1646', 11, 16, 10, 1, '1', '1', '1', '1'),
+(1, 'Elvis Leite', '90f80b22f53a5d4d72f7b126ef4b1f44', 1, 2, 1, 'admin@suportegerencial.com.br', '1', '0', '/images/perfil/Elv_1.png', '2022-01-12 03:00:00', '2021-02-16 03:00:00', '1103', 'M', '7445', '(11)9 4749-1646', 11, 16, 10, 1, '1', '1', '1', '1'),
 (2, 'Lucas Ferreira', '4297f44b13955235245b2497399d7a93', 1, 2, 3, 'lucas.ferreira@suportegerencial.com.br', '1', '0', '/images/perfil/Luc_2.png', '2022-05-05 10:02:22', '2022-05-05 13:02:22', '', 'M', '', '', 1, 7, 10, 1, '1', '1', '1', '1'),
 (4, 'Jonathas Almeida', 'fcea920f7412b5da7be0cf42b8c93759', 1, 2, 3, 'jonathas.almeida@suportegerencial.com.br', '1', '0', '/images/perfil/masc.jpg', '2022-05-05 12:28:19', '2022-05-05 15:28:19', '', 'M', '', '', 1, 7, 10, 1, '0', '0', '0', '0'),
 (3, 'Douglas Santos', '8d4646eb2d7067126eb08adb0672f7bb', 1, 2, 3, 'douglas.santos@suportegerencial.com.br', '1', '0', '/images/perfil/masc.jpg', '2022-05-05 12:27:31', '2022-05-05 15:27:31', '', 'M', '', '', 1, 7, 10, 1, NULL, NULL, NULL, NULL);
