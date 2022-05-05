@@ -150,14 +150,6 @@ CREATE TABLE `sys_logado` (
 --
 -- Extraindo dados da tabela `sys_logado`
 --
-
-INSERT INTO `sys_logado` (`log_id`, `log_user`, `log_classe`, `log_token`, `log_horario`, `log_expira`, `log_status`) VALUES
-(17, 'admin@teste.dev.com', 1, '9a7d2cf2e2c2884b402c1855fcca7390', '2022-05-05 09:57:34', '2022-05-05 10:57:34', '0'),
-(18, 'admin@suportegerencial.com.br', 1, '348a9e5265b6ea6c6bec762aa4becbc6', '2022-05-05 10:12:13', '2022-05-05 11:12:13', '0'),
-(19, 'admin@suportegerencial.com.br', 1, 'bccd60b912a015d71a44055379ad39db', '2022-05-05 10:13:38', '2022-05-05 11:13:38', '0'),
-(20, 'admin@suportegerencial.com.br', 1, 'a0aeba51947ec1725e39ec2cd90b43e9', '2022-05-05 11:38:35', '2022-05-05 12:38:35', '0'),
-(21, 'admin@suportegerencial.com.br', 1, 'e3ba2ffb1f66e94906a181e1499cfb18', '2022-05-05 11:52:00', '2022-05-05 12:52:00', '1');
-
 -- --------------------------------------------------------
 
 --
