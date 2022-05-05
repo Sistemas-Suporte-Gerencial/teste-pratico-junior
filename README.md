@@ -7,7 +7,7 @@
 * Acessar a aplicação em:
 http://127.0.0.1:85/view/login.php
 - Login: admin@suportegerencial 
-- Senha: 123123 
+- Senha: Mudar@123
 
 * Acessar o Banco de Dados
 - http://localhost:8080/
