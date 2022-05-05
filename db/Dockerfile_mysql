@@ -1,0 +1,15 @@
+FROM mysql:8.0
+
+ARG MYSQL_ROOT_PASSWORD= root     
+ARG MYSQL_HOST= localhost
+ARG MYSQL_DATABASE= app_db
+ARG MYSQL_USER= db_user
+ARG MYSQL_PASSWORD= db_user_pass
+ARG MYSQL_ALLOW_EMPTY_PASSWORD= yes
+
+ENV mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+COPY data/ /var/lib/mysql
+COPY my.cnf/ /etc/mysql/conf.d/my.cnf
+COPY sql/ /docker-entrypoint-initdb.d
+
