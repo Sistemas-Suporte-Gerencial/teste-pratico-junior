@@ -10,6 +10,8 @@ require_once("../config/valida.php");
 require_once("../config/mnutop.php");
 require_once("../config/menu.php");
 require_once("../config/modals.php");
+require_once("../class/class.functions.php");
+$fn = new functions();
 ?>
   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -67,7 +69,7 @@ require_once("../config/modals.php");
 							<!-- /.col --> 
 							<div class="col-sm-5">
 								<div class="form-group">
-								  <label>#Raz&atilde;o social:</label>
+								  <label>#Nome Fantasia:</label>
 									<div class="input-group">
 										<div class="input-group-prepend">
 											<span class="input-group-text"><i class="fas fa-briefcase"></i></span>
@@ -259,7 +261,7 @@ require_once("../config/modals.php");
 								<!-- /.form-group -->
 							</div>
 							<!-- /.col -->
-							<div class="col-sm-4">
+							<div class="col-sm-3">
 								<div class="form-group">
 								  <label>#Site:</label>
 									<div class="input-group">
@@ -271,6 +273,19 @@ require_once("../config/modals.php");
 								</div>
 								<!-- /.form-group -->
 							</div>
+							<div class="col-sm-2">
+								<div class="form-group">
+									<label>Data Fundação:</label>
+									<div class="input-group">
+										<div class="input-group date" id="calendario" data-target-input="nearest">
+											<div class="input-group-append" data-target="#calendario" data-toggle="datetimepicker">
+												<div class="input-group-text" ><i class="far fa-calendar-check"></i></div>
+											</div>
+											<input type="text" DISABLED class="form-control data_br" name="emp_data" id="emp_data" value="<?=$fn->data_br($rs->fld("emp_data"));?>"/>																												
+										</div>
+									</div>
+								</div>
+							</div>										            								
 						</div>
 						<!-- /.row -->           
 					</div>
@@ -308,5 +323,59 @@ require_once("../config/modals.php");
 <script src="<?=$hosted;?>/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?=$hosted;?>/assets/dist/js/adminlte.min.js"></script>
+<!-- InputMask Mscara java-->
+<script src="<?=$hosted;?>/js/maskinput.js"></script>
+<script src="<?=$hosted;?>/js/jmask.js"></script>
+<script src="<?=$hosted;?>/assets/plugins/moment/moment.min.js"></script>
+<script src="<?=$hosted;?>/assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<!-- date-range-picker -->
+<script src="<?=$hosted;?>/assets/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="<?=$hosted;?>/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="<?=$hosted;?>/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!--Chama o java script para mascara e cep -->
+<script src="<?=$hosted;?>/js/jcep.js"></script> 
+<!--Chama o java script -->
+<script src="<?=$hosted;?>/js/action_system.js"></script>
+<!-- Validation --> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+<!-- <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
+<script>
+  $(function () {
+  
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+     $("#calendario").datetimepicker({
+       format: 'DD/MM/YYYY',
+       
+        pickTime: false,
+        pickSeconds: false,
+        pick12HourFormat: false  
+    })
+   
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    });
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+
+  })
+</script>
 </body>
 </html>
+

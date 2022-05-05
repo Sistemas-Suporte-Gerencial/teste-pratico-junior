@@ -50,6 +50,7 @@ $dados = array();
 				$dados["emp_tel"]		= $emp_tel; 
 				$dados["emp_site"]		= $emp_site;   
 				$dados["emp_logo"]		= $logo;   
+				$dados["emp_data"]		= $fn->data_usa($emp_data);   
 														
 				if(!$rs->Insere($dados,"sys_empresa")){
 					$resul['status'] = "OK";
@@ -86,6 +87,7 @@ $dados = array();
 		$dados['emp_email']	    = $emp_email; 
 		$dados['emp_tel']		= $emp_tel; 
 		$dados['emp_site']		= $emp_site; 
+		$dados['emp_data']		= $fn->data_usa($emp_data);	; 
 		$whr = "emp_id=".$emp_id; 
 		
 		if(!$rs->Altera($dados, "sys_empresa",$whr)){ 
@@ -100,6 +102,26 @@ $dados = array();
 		exit;
 	}	
 /*---------------|FIM DO EDITAR|---------------------------------*/	
+
+/*-------------|FUNCAO PARA EXCLUIR EMPRESA|--------------------\
+|												   				|
+\--------------------------------------------------------------*/ 
+	
+	if($acao == "excluir_empresa"){     	
+		if(!$rs->Exclui("sys_empresa","emp_id=".$emp_id)){  
+			$resul['status'] = "OK";
+			$resul['mensagem'] = "Dados Excluidos!"; 			  
+		}
+		else{
+			$resul['mensagem']	= "Ocorreu um erro..."; 
+			$resul['sql']		= $rs->sql;  
+		}	
+		echo json_encode($resul);
+		exit;
+	}
+
+/*---------------|FIM DE EXLUIR EMPRESA	|------------------*/
+
 
 //|----------------------------------------------------------------\
 ///////////////// FIM EMPRESA \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|                                       
@@ -196,6 +218,7 @@ $dados = array();
 	\*---------------------------------------------------------*/
 	if($acao == "Cadastra_Usuario"){
 		//Define imagem por genero
+		$usu_sexo ='M';// Ajustado para o Teste
 		if($usu_sexo == 'M'){
 			$foto ="/images/perfil/masc.jpg";
 		}
@@ -221,11 +244,8 @@ $dados = array();
 				$dados["usu_ramal"] 	= $usu_ramal;
 				$dados["usu_cel"] 	   	= $usu_cel;		
 				$dados['usu_foto']	    = $foto ;  
-				$dados["usu_ativo"] 	= "1";
-				$dados["usu_pmail"]	    = $usu_pmail;
-				$dados["usu_pchat"]	    = $usu_pchat;
-				$dados["usu_prelatorio"]= $usu_prel;
-				$dados["usu_sexo"] 	    = $usu_sexo;
+				$dados["usu_ativo"] 	= "1";				
+				$dados["usu_sexo"] 	    = "M";
 				$dados["usu_online"] 	= "0";
 				$dados["usu_dashId"]	= "1"; 
 				$dados["usu_mnutopId"]	= "7"; 
@@ -282,7 +302,7 @@ $dados = array();
 	}
 /*---------------|FIM DO EDITAR|-----------------------------------*/	
 
-	/*-------------|FUNCAO PARA EXCLUIR CURSO|---------------------\
+	/*-------------|FUNCAO PARA EXCLUIR USUARIO|--------------------\
 	|												   				|
 	\--------------------------------------------------------------*/ 
 	
@@ -382,7 +402,7 @@ $dados = array();
 		echo json_encode($resul);
 		exit;
 	}
-/*---------------|FIM EDITAR|------------------------------------*\
+/*---------------|FIM EDITAR|------------------------------------*/
 
 //|----------------------------------------------------------------\
 ///////////////// FIM PERFIL USUARIO \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|                                       
@@ -399,279 +419,8 @@ $dados = array();
 //=========================================================================================================================
 
 
-//------------------------------------------------------------------------------------------------------------
-//CURSO//////////////////////////////////////////////////////////////////////////////////////////
-//============================================================================================================
-
-	/*-----|FUNCAO PARA CADASTRO DE CURSO|---------------------\
-	| 								                    	    |	
-	\*---------------------------------------------------------*/
-	
-	if($acao == "Cadastrar_Curso"){  
-			$cod = $rs->autocod("cur_id","sys_curso");
-			$dados['cur_id']   	= $cod;		
-			$dados["cur_titulo"]	= $cur_titulo;
-			$dados["cur_desc"]	    = $cur_desc;
-			$dados["cur_data_ini"]	= $fn->data_usa($cur_data_ini);
-			$dados["cur_data_fin"]	= $fn->data_usa($cur_data_fin);
-		
-		if(!$rs->Insere($dados,"sys_curso")){ 
-			$resul['status'] = "OK";
-			$resul['mensagem'] = "Curso cadastrado com sucesso!";
-		}
-		else{
-			$resul['status'] = "Erro";
-			$resul['mensagem'] = $rs->sql;
-		}
-		
-		
-		echo json_encode($resul); 
-		exit;
-	}
-/*---------------|FIM DO CADASTRO DE CURSO |------------------*/	
-
-    /*------------|FUNCAO PARA EDITARR O CURSO|---------------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-
-	if($acao == "Edita_Curso"){
-		$dados['cur_titulo']	= $cur_titulo;	 
-		$dados['cur_desc']		= $cur_desc;	 
-		$dados["cur_data_ini"]	= $fn->data_usa($cur_data_ini);
-		$dados["cur_data_fin"]	= $fn->data_usa($cur_data_fin);	 
-		$whr = "cur_id=".$cur_id; 
-		
-		if(!$rs->Altera($dados, "sys_curso",$whr)){ 
-			$resul['status'] = "OK";
-			$resul['mensagem'] = "Dados atualizados!"; 
-			$resul['sql'] = $rs->sql;
-
-		}
-		else{
-			$resul['mensagem']	= "Ocorreu um erro..."; 
-			$resul['sql']		= $rs->sql;  
-		}	
-		echo json_encode($resul);
-		exit;
-	}
-/*---------------|FIM DE EDITAR CURSO|------------------*/
-
-
-	/*-------------|FUNCAO PARA EXCLUIR CURSO|---------------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	if($acao == "excluir_curso"){     	
-		if(!$rs->Exclui("sys_curso","cur_id=".$cur_id)){  
-			$resul['status'] = "OK";
-			$resul['mensagem'] = "Dados Excluidos!"; 			  
-		}
-		else{
-			$resul['mensagem']	= "Ocorreu um erro..."; 
-			$resul['sql']		= $rs->sql;  
-		}	
-		echo json_encode($resul);
-		exit;
-	}
-
-/*---------------|FIM DE EXLUIR CURSO|------------------*/
-
-
-//|----------------------------------------------------------------\
-/////////////////////////// FIM CURSO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//|----------------------------------------------------------------/
-
-
-//------------------------------------------------------------------------------------------------------------
-//ALUNO//////////////////////////////////////////////////////////////////////////////////////////
-//============================================================================================================
-
-	/*---------------|FUNCAO PARA CADASTRO DE ALUNO|----------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 	
-	
-	if($acao == "Cadastrar_Aluno"){  
-		$datadonascimento = $alu_data_nasc;
-		list($dia, $mes, $ano) = explode('/', $datadonascimento);
-		$hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-		$diadonascimento = mktime( 0, 0, 0, $mes, $dia, $ano);
-		$idade = floor((((($hoje - $diadonascimento) / 60) / 60) / 24) / 365.25);	
-		
-		if($idade < 16){
-				$resul['status'] = "Erro";
-				$resul['status'] = "Aluno menor de 16 anos";
-				$resul['mensagem'] = $rs->sql;  
-			}ELSE{
-				$cod = $rs->autocod("alu_id","sys_aluno");
-				$dados['alu_id']   		= $cod;
-				$dados["alu_nome"]		= $alu_nome; 
-				$dados["alu_email"]		= $alu_email;
-				$dados["alu_data_nasc"]	= $fn->data_usa($alu_data_nasc);	 
-				$dados["alu_status"]	= '1';
-			
-			if(!$rs->Insere($dados,"sys_aluno")){ 
-				$resul['status'] = "OK";
-				$resul['mensagem'] = "Aluno cadastrado com sucesso!";
-		}
-		else{
-			$resul['status'] = "Erro";
-			$resul['mensagem'] = $rs->sql;
-			
-			}
-		}
-		
-		echo json_encode($resul); 
-		exit;
-	}
-/*---------------|FIM DO CADASTRO ALUNO |------------------*/	
-
-    /*------------|FUNCAO PARA EDITAR ALUNO|-----------------------\
-	|										   						|
-	\--------------------------------------------------------------*/ 
-
-	if($acao == "Edita_Aluno"){
-		$dados["alu_nome"]		= $alu_nome; 
-		$dados["alu_email"]		= $alu_email;
-		$dados["alu_data_nasc"]	= $fn->data_usa($alu_data_nasc);	  
-		$dados["alu_status"]	= $alu_status;
-		$whr = "alu_id=".$alu_id; 
-		
-		if(!$rs->Altera($dados, "sys_aluno",$whr)){ 
-			$resul['status'] = "OK";
-			$resul['mensagem'] = "Dados atualizados!"; 
-			$resul['sql'] = $rs->sql;
-			  
-		}
-		else{
-			$resul['mensagem']	= "Ocorreu um erro..."; 
-			$resul['sql']		= $rs->sql;  
-		}	
-		echo json_encode($resul);
-		exit;
-	}
-/*---------------|FIM DE EDITAR ALUNO|------------------*/
-
-	/*--------------|FUNCAO PARA EXCLUIR ALUNO|---------------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	if($acao == "excluir_aluno"){     	
-		if(!$rs->Exclui("sys_aluno","alu_id=".$alu_id)){  
-			$resul['status'] = "OK";
-			$resul['mensagem'] = "Dados Excluidos!"; 			  
-		}
-		else{
-			$resul['mensagem']	= "Ocorreu um erro..."; 
-			$resul['sql']		= $rs->sql;  
-		}	
-		echo json_encode($resul);
-		exit;
-	}
-
-/*---------------|FIM DE EXLUIR ALUNO|------------------*/
-
-
-//|----------------------------------------------------------------\
-//////////////// FIM TIPO DE ALUNO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//|----------------------------------------------------------------/	
-
-//------------------------------------------------------------------------------------------------------------
-//MATRICULA//////////////////////////////////////////////////////////////////////////////////////////////////
-//============================================================================================================
- 
-	/*----------|FUNCAO PARA CADASTRO DE MATRICULAS|---------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	if($acao == "Cadastrar_Matricula"){ 			
-		$sql ="SELECT 	*	FROM sys_matricula a
-				JOIN sys_curso b ON a.mat_curId = b.cur_id
-				JOIN sys_aluno c ON a.mat_aluId = c.alu_id
-				WHERE mat_curId =".$sel_curso;				
-			$rs->FreeSql($sql);
-			 if($rs->linhas>=10){
-			 	$resul['status'] = "Erro";
-			 	$resul['status'] = "Esse curso já esta com 10 alunos";  
-			 	$resul['mensagem'] = $rs->sql;  
-			 }ELSE{
-			$cod = $rs->autocod("mat_id","sys_matricula");
-			$dados["mat_id"]       	= $cod;		
-			$dados["mat_curId"]    	= $sel_curso; 		
-			$dados["mat_aluId"] 	= $sel_aluno; 							
-			$dados["mat_data"]  	= date('Y-m-d H:i:s');		
-			$dados["mat_usuId"]   	= $_SESSION['usu_cod']; 
-			
-			 
-		if(!$rs->Insere($dados,"sys_matricula")){
-			$resul['status'] = "OK";
-			$resul['mensagem'] = "Matricula efetuada com sucesso!";
-		} 
-		else{
-			$resul['status'] = "Erro";
-			$resul['mensagem'] = $rs->sql;        
-			  
-		}
-		}
-		
-		echo json_encode($resul);
-		exit;
-	}
-/*---------------|FIM DO CADASTRO DE MATRICULA |------------------*/	
-
-	/*--------------|FUNCAO PARA EDITAR MATRICULA|--------------\
-	|										   					  |
-	\------------------------------------------------------------*/ 
-
-	if($acao == "Editar_Matricula"){
-		$dados["mat_curId"]    	= $sel_curso; 		
-		$dados["mat_aluId"] 	= $sel_aluno;	 	
-		$whr = "mat_id=".$mat_id; 
-		
-		if(!$rs->Altera($dados, "sys_matricula",$whr)){ 
-
-		$resul['status'] = "OK";
-
-		$resul['mensagem'] = "Dados atualizado!"; 
-
-		 $resul['sql'] = $rs->sql;
-			  
-		}
-		else{
-			$resul['mensagem']	= "Ocorreu um erro..."; 
-			$resul['sql']		= $rs->sql;  
-		}	
-		echo json_encode($resul);
-		exit;
-	}	
-/*---------------|FIM DE EDITAR MATRICULA|------------------*/	
-
-
-	/*--------------|FUNCAO PARA EXCLUIR MATRICULA|-----------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	if($acao == "excluir_matricula"){     	
-		if(!$rs->Exclui("sys_matricula","mat_id=".$mat_id)){  
-			$resul['status'] = "OK";
-			$resul['mensagem'] = "Dados Excluidos!"; 			  
-		}
-		else{
-			$resul['mensagem']	= "Ocorreu um erro..."; 
-			$resul['sql']		= $rs->sql;  
-		}	
-		echo json_encode($resul);
-		exit;
-	}
-
-/*---------------|FIM DE EXLUIR MATRICULA|------------------*/
-
-
-
-//-------------------------------------------------------------------------------------------------------------------------
-///////// FIM FUNÇÔES DE ENSINO //////////////////////////////////////////////////////////////////////////////////////////////////////||
-//=========================================================================================================================
-	
 //---------------------------------------------------------------------------------------------------------------------------------
 /////////FIN DAS FUNÇÔES  /////////////////////////////////////////////////////////////////////////////////////////////||||||||||||
 //=================================================================================================================================
+
 ?>	

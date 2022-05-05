@@ -27,7 +27,8 @@ $(document).ready(function(){
 			num         : {required: true},	
 			emp_contato : {required: true, minlength: 5},
 			emp_email   : {required: true, email:true},		
-			emp_tel     : {required: true, minlength: 12}	
+			emp_tel     : {required: true, minlength: 12},	
+			emp_data     : {required: true}	
 		},
 		messages:{
 			emp_nome    : {required:"Informe o nome da Empresa", minlength: "M&iacute;nimo de 5 caracteres."},
@@ -37,7 +38,8 @@ $(document).ready(function(){
 			num         : {required:"Informe Um N&uacute;mero"},
 			emp_contato : {required:"Informe Um nome valido", minlength: "M&iacute;nimo de 5 caracteres."},
 			emp_email	: {required:"Informe um e-mail valido", email:"Email Invalido"},
-			emp_tel     : {required:"Informe o Telefone", minlength: "M&iacute;nimo de 12 caracteres."}
+			emp_tel     : {required:"Informe o Telefone", minlength: "M&iacute;nimo de 12 caracteres."},
+			emp_data    : {required:"Informe a Data de fincação "}
 			
 		},
 		errorElement: 'span',
@@ -71,8 +73,9 @@ $(document).ready(function(){
 			uf:    	        $("#uf").val(),						
 			emp_contato:	$("#emp_contato").val(), 
 			emp_email:		$("#emp_email").val(), 
-			emp_tel:		$("#emp_tel").val(),
-			emp_site:		$("#emp_site").val()
+			emp_tel:		$("#emp_tel").val(),			
+			emp_site:		$("#emp_site").val(),
+			emp_data:	    $("#emp_data").val()
 		
 			},function(data){
 				if (data.status == "OK") {					
@@ -120,7 +123,8 @@ $(document).ready(function(){
 			emp_contato:	$("#emp_contato").val(), 
 			emp_email:		$("#emp_email").val(), 
 			emp_tel:		$("#emp_tel").val(),
-			emp_site:		$("#emp_site").val()
+			emp_site:		$("#emp_site").val(),
+			emp_data:		$("#emp_data").val()
 		},
 		function(data){
 			if(data.status=="OK"){				
@@ -141,6 +145,35 @@ $(document).ready(function(){
 		);		
 	});
 /*---------------|FIM DE EDITAR |--------------------------------*/	
+
+
+	/*---------------|FUNCAO PARA EXCLUIR EMPRESA|------------------\
+	|												   				|
+	\--------------------------------------------------------------*/ 
+	
+	$(document.body).on("click",".exc_Emp", function(){
+		console.log("Click OK");
+		cod = $(this).data("reg");
+		$.post("../controller/sys_record_data.php", { 
+			acao: "excluir_empresa",
+			emp_id: cod			
+		},
+		function(data){
+			if(data.status=="OK"){
+				$("#confirma").modal('hide');
+				$("#agurade").modal('show');
+				location.reload();
+			}
+			else{
+				alert(data.message);
+			}
+		},
+		"json");
+	});
+/*---------------|FIM DE EXLUIR EMPRESA	|------------------*/
+
+
+
 
 //|----------------------------------------------------------------\
 ///////////////// FIM EMPRESA \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|                                       
@@ -284,13 +317,10 @@ $(document).ready(function(){
 			rules: {
 				usu_nome	: {required: true, minlength: 9},
 				usu_email	: {required: true, email:true},
-				usu_senha	: {required: true, minlength: 6 },
+				usu_senha	: {required: true, minlength: 7 },
 				usu_csenha	: {required: true, equalTo:"#usu_senha"},
 				sel_emp  	: {required: true},                
-				sel_dp	    : {required: true}, 
-				usu_sexo	: {required: true}, 
-				usu_pmail	: {required: true}, 
-				usu_pchat	: {required: true}, 
+				sel_dp	    : {required: true}, 				 
 				sel_class	: {required: true} 
 			},
 			messages: {
@@ -299,10 +329,7 @@ $(document).ready(function(){
 				usu_senha	: {required: "Digite uma senha valida (Minimo 6 caracteres )", minlength: "M&iacute;nimo de 6 caracteres."},
 				usu_csenha	: {required: "Digite a senha novamente (Confirme a senha)",equalTo:"As senhas não coincidem"},
 				sel_emp  	: {required: "Selecione uma Empresa "},
-				sel_dp	    : {required: "Selecione um Departamento"},
-				usu_sexo	: {required: "Selecione o sexo"},
-				usu_pmail	: {required: "Permissão de e-mail"},
-				usu_pchat	: {required: "Permissão de Chat"},
+				sel_dp	    : {required: "Selecione um Departamento"},				
 				sel_class	: {required: "Selecione uma classe (Selecione uma Classe)"}
 			},
 			errorElement: 'span',
@@ -331,12 +358,8 @@ $(document).ready(function(){
 				sel_class:		$("#sel_class").val(),				
 				usu_chapa: 	    $("#usu_chapa").val(),
 				usu_ramal:  	$("#usu_ramal").val(),
-				usu_cel:    	$("#usu_cel").val(),				
-				usu_pmail: 	    $("input[name=usu_pmail]:checked").val(), 
-				usu_pchat: 	    $("input[name=usu_pchat]:checked").val(), 
-				usu_pcalend:    $("input[name=usu_pcalend]:checked").val(), 
-				usu_prel:   	$("input[name=usu_prel]:checked").val(), 
-				usu_sexo: 	    $("input[name=usu_sexo]:checked").val() 
+				usu_cel:    	$("#usu_cel").val()
+				
 
 				},function(data){
 					if (data.status == "OK") {
@@ -585,400 +608,10 @@ $(document).ready(function(){
 ///////// FUNÇÔES  //////////////////////////////////////////////////////////////////////////////////////////////////////||
 //=========================================================================================================================
 
-//-------------------------------------------------------------------------------------------------------------------------
-///////// FUNÇÔES DO CURSO  //////////////////////////////////////////////////////////////////////////////////////////////////////||
-//=========================================================================================================================
-
-//------------------------------------------------------------------------------------------------------------
-//CURSO//////////////////////////////////////////////////////////////////////////////////////////
-//============================================================================================================
-
-	/*--------|FUNCAO PARA CADASTRO DE CURSO|-----------------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	$(document.body).on("click","#btn_CadCurso", function(){
-	var container = $("#formerros"); 
-	$("#FormCadCurso").validate({
-		debug: true,
-		errorClass: "error",
-		errorContainer: container,
-		errorLabelContainer: $("ol", container),
-		wrapper: 'li',
-		rules: {
-			cur_titulo   : {required: true, minlength: 3, maxlength: 20},	 
-			cur_data_ini : {required: true},	 
-			cur_data_fin : {required: true}	 
-		}, 
-		messages:{		
-			cur_titulo   : {required:"Informe o Titulo ", minlength: "M&iacute;nimo de 2 caracteres."},
-			cur_data_ini : {required:"Informe a Data de Inicio "},
-			cur_data_fin : {required:"Informe a Data de termino "}
-		},
-			errorElement: 'span',
-			errorPlacement: function (error, element) {
-			error.addClass('invalid-feedback');
-			element.closest('.form-group').append(error);
-			},
-			highlight: function (element, errorClass, validClass) {
-			$(element).addClass('is-invalid');
-			},
-			unhighlight: function (element, errorClass, validClass) {
-			$(element).removeClass('is-invalid');
-			}
-	});
-	//fim do validate
-	if($("#FormCadCurso").valid()==true){ 
-		$("#btn_CadCurso").html("<i class='fas fa-spin fa-spinner'></i> Processando...");
-		$.post("../controller/sys_record_data.php",
-			{
-			acao:			"Cadastrar_Curso",
-			cur_titulo:		$("#cur_titulo").val(), 
-			cur_desc:		$("#cur_desc").val(), 
-			cur_data_ini:	$("#cur_data_ini").val(), 
-			cur_data_fin:	$("#cur_data_fin").val()
-		
-			},function(data){
-				if (data.status == "OK") {
-					$("<div></div>").addClass("alert alert-success alert-dismissable").html('<i class="fa fa-check"></i> ('+data.mensagem+') <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-					$("#FormCadCurso")[0].reset();
-					console.log(data.query);					
-				}
-				else {
-					$("<div></div>").addClass("alert alert-warning alert-dismissable").html('<i class="fas fa-exclamation-triangle""></i> Tipo de equipamento j&aacute; cadastrado <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-				}
-				$("#btn_CadCurso").html("<i class='fas fa-plus'></i> Novo");
-			}, "json");
-		}
-	});
-/*---------------|FIM DO CADASTRO DE CURSO |------------------*/
-
-	/*------------|FUNCAO PARA EDITAR CURSO|------------------------\
-	|										   						|
-	\--------------------------------------------------------------*/  
-			
-	$(document.body).on("click","#btn_Edit_Curso",function(){   
-		console.log("CLICK OK");
-		var token = $("#token").val();
-		var lista = $("#lista").val();
-		cod = $("#cur_id").val();
-		
-		$.post("../controller/sys_record_data.php",{ 
-			acao: "Edita_Curso",
-			cur_id: cod,
-			cur_titulo: $("#cur_titulo").val(),
-			cur_desc: $("#cur_desc").val(),
-			cur_data_ini: $("#cur_data_ini").val(),
-			cur_data_fin: $("#cur_data_fin").val()
-		},
-		function(data){
-			if(data.status=="OK"){
-				$("<div></div>").addClass("alert alert-info alert-dismissable").html('<i class="fas fa-check"></i> ('+data.mensagem+') <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-				$("#FormEditaCurso")[0].reset(); 
-				console.log(data.query);
-				// $("#confirma").modal("hide");
-				// $("#aguarde").modal("show");
-				//location.reload(); 
-			} 
-			else{
-				alert(data.mensagem);	
-			}
-			$("#btn_Edit_Curso").html("<i class='fas fa-sync-alt'></i> Alterado");				
-		},
-		"json");
-	});
-/*---------------|FIM DE EDITAR CURSO|------------------*/
-
-	/*---------------|FUNCAO PARA EXCLUIR CURSO|--------------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	$(document.body).on("click",".exc_Curso", function(){
-		console.log("Click OK");
-		cod = $(this).data("reg");
-		$.post("../controller/sys_record_data.php", { 
-			acao: "excluir_curso",
-			cur_id: cod			
-		},
-		function(data){
-			if(data.status=="OK"){
-				$("#confirma").modal('hide');
-				$("#agurade").modal('show');
-				location.reload();
-			}
-			else{
-				alert(data.message);
-			}
-		},
-		"json");
-	});
-/*---------------|FIM DE EXLUIR CURSO|------------------*/
-
-
-//|----------------------------------------------------------------\
-/////////////////////////// FIM CURSO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//|----------------------------------------------------------------/
-
-
-//------------------------------------------------------------------------------------------------------------
-//ALUNO//////////////////////////////////////////////////////////////////////////////////////////
-//============================================================================================================
-
-	/*---------------|FUNCAO PARA CADASTRO DE ALUNO|----------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	$(document.body).on("click","#btn_CadAluno", function(){
-	var container = $("#formerros"); 
-	$("#FormCadAluno").validate({
-		debug: true,
-		errorClass: "error",
-		errorContainer: container,
-		errorLabelContainer: $("ol", container),
-		wrapper: 'li',
-		rules: {
-			alu_nome : {required: true, minlength: 5}, 
-			alu_email: {required: true, email:true},
-			alu_data_nasc: {required: true}
-		}, 
-		messages:{
-			alu_nome  : {required:"Informe o nome do Aluno", minlength: "M&iacute;nimo de 5 caracteres."},
-			alu_email : {required:"Informe um e-mail valido", email:"Email Invalido"},
-			alu_data_nasc : {required:"Informe a data de nascimento"}
-		},
-			errorElement: 'span',
-			errorPlacement: function (error, element) {
-			error.addClass('invalid-feedback');
-			element.closest('.form-group').append(error);
-			},
-			highlight: function (element, errorClass, validClass) {
-			$(element).addClass('is-invalid');
-			},
-			unhighlight: function (element, errorClass, validClass) {
-			$(element).removeClass('is-invalid');
-			}
-	});
-	//fim do validate
-	if($("#FormCadAluno").valid()==true){ 
-		$("#btn_CadAluno").html("<i class='fas fa-spin fa-spinner'></i> Processando...");
-		$.post("../controller/sys_record_data.php",
-			{
-			acao:			"Cadastrar_Aluno",
-			alu_nome:		$("#alu_nome").val(),
-			alu_email:		$("#alu_email").val(), 
-			alu_data_nasc:	$("#alu_data_nasc").val() 
-		
-			},function(data){
-				if (data.status == "OK") {
-					$("<div></div>").addClass("alert alert-success alert-dismissable").html('<i class="fas fa-check"></i> ('+data.mensagem+') <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-					$("#FormCadAluno")[0].reset();
-					console.log(data.query);
-					// $("#Dp_cad").load("sys_tbDepartamentos.php");// atualiza a pagina com o campo inserido 
-				}
-				else {
-					$("<div></div>").addClass("alert alert-warning alert-dismissable").html('<i class="fas fa-warning"></i> Aluno menor de 16 anos <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-				}
-				$("#btn_CadAluno").html("<i class='fas fa-plus'></i> Nova");
-			}, "json");
-		}
-	});
-/*-----------------------|FIM DO CADASTRO DE ALUNO |------------------*/
-
-    /*-------------|FUNCAO PARA EDITAR ALUNO|----------------------\
-	|	 											   				|
-	\--------------------------------------------------------------*/  
-			
-	$(document.body).on("click","#btn_EditAluno",function(){   
-		console.log("CLICK OK");
-		var token = $("#token").val();
-		var lista = $("#lista").val();
-		cod = $("#alu_id").val();
-		
-		$.post("../controller/sys_record_data.php",{ 
-			acao: "Edita_Aluno",
-			alu_id: cod,
-			alu_nome: $("#alu_nome").val(),
-			alu_email: $("#alu_email").val(),
-			alu_data_nasc: $("#alu_data_nasc").val(),
-			alu_status:	($("#alu_status").prop("checked") == false?0:1)
-		},
-		function(data){
-			if(data.status=="OK"){
-				$("<div></div>").addClass("alert alert-info alert-dismissable").html('<i class="fas fa-check"></i> ('+data.mensagem+') <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-				$("#FormEditAluno")[0].reset(); 
-				console.log(data.query);
-				// $("#confirma").modal("hide");
-				// $("#aguarde").modal("show");
-				//location.reload(); 
-			} 
-			else{
-				alert(data.mensagem);	
-			}
-			$("#btn_EditAluno").html("<i class='fas fa-sync-alt'></i> Alterado");
-		},
-		"json");
-	});
-/*---------------|FIM DE EDITAR Aluno|------------------*/
-
-	/*---------------|FUNCAO PARA EXCLUIR ALUNO|--------------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	$(document.body).on("click",".exc_Alu", function(){
-		console.log("Click OK");
-		cod = $(this).data("reg");
-		$.post("../controller/sys_record_data.php", { 
-			acao: "excluir_aluno",
-			alu_id: cod			
-		},
-		function(data){
-			if(data.status=="OK"){
-				$("#confirma").modal('hide');
-				$("#agurade").modal('show');
-				location.reload();
-			}
-			else{
-				alert(data.message);
-			}
-		},
-		"json");
-	});
-/*---------------|FIM DE EXLUIR ALUNO	|------------------*/
-
-
-//|----------------------------------------------------------------\
-///////////////////// FIM DE ALUNO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//|----------------------------------------------------------------/	
-
-//------------------------------------------------------------------------------------------------------------
-//MATRICULA//////////////////////////////////////////////////////////////////////////////////////////////////
-//============================================================================================================
- 
-	/*---------|FUNCAO PARA CADASTRO DE MATRICULAS|---------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	$(document.body).on("click","#btn_CadMatricula", function(){
-        var container = $("#formerros"); 
-		$("#FormCadMatricula").validate({
-			debug: true,
-			errorClass: "error",
-			errorContainer: container,
-			errorLabelContainer: $("ol", container),
-   			wrapper: 'li',
-			rules: {
-				sel_curso  : {required: true},
-                sel_aluno : {required: true}
-                
-			}, 
-			messages:{
-				sel_curso   : {required: "Selecione uma Curso"}, 
-                sel_aluno   : {required: "Selecione um Aluno"}
-            				
-			},
-	            errorElement: 'span',
-				errorPlacement: function (error, element) {
-				error.addClass('invalid-feedback');
-				element.closest('.form-group').append(error);
-				},
-				highlight: function (element, errorClass, validClass) {
-				$(element).addClass('is-invalid');
-				},
-				unhighlight: function (element, errorClass, validClass) {
-				$(element).removeClass('is-invalid');
-				}
-			});
-		if($("#FormCadMatricula").valid()==true){ 
-			$("#btn_CadMatricula").html("<i class='fas fa-spin fa-spinner'></i> Processando...");
-			$.post("../controller/sys_record_data.php",
-				{  
-				acao:			"Cadastrar_Matricula",  
-				sel_curso:		$("#sel_curso").val(), 
-			    sel_aluno:	   	$("#sel_aluno").val()
-							 
-				},function(data){
-					if (data.status == "OK") {
-						$("<div></div>").addClass("alert alert-success alert-dismissable").html('<i class="fas fa-check"></i> ('+data.mensagem+') <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-						$("#FormCadMatricula")[0].reset();
-						console.log(data.query);
-						// $("#eq_cad").load("at_tbEquipamentos.php");// atualiza a pagina com o campo inserido 
-		 			}
-					else { 
-						$("<div></div>").addClass("alert alert-warning alert-dismissable").html('<i class="fas fa-exclamation-triangle""></i> Esse curso já esta com 10 alunos <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-					}
-					$("#btn_CadMatricula").html("<i class='fas fa-plus'></i> Novo");
-				}, "json");
-			}
-	}); 
-/*---------------|FIM DO CADASTRO DE MATRICULAS |------------------*/	
-
-    /*-------------------|EDITAR  MATRICULA|-----------------------*\
-	|	                     						   				|
-	\--------------------------------------------------------------*/ 
-	
-	$(document.body).on("click","#btn_EditMatricula", function(){        
-		console.log("CLICK OK");
-		var token = $("#token").val(); 
-		var lista = $("#lista").val();
-		cod = $("#mat_id").val(); 
-		
-		$.post("../controller/sys_record_data.php",{ 
-			acao: "Editar_Matricula", 
-			mat_id: cod,
-			sel_curso:		$("#sel_curso").val(), 
-			sel_aluno:	   	$("#sel_aluno").val()
-			
-		},
-		function(data){
-				if(data.status=="OK"){
-					$("#btn_EditMatricula").html("<i class='fas fa-sync-alt'></i> Alterado");		
-					$("<div></div>").addClass("alert alert-info alert-dismissable").html('<i class="fas fa-check"></i> ('+data.mensagem+') <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>').appendTo("#mens");
-					$("#FormEditMatricula")[0].reset(); 
-					console.log(data.query);
-					// $("#confirma").modal("hide");
-					// $("#aguarde").modal("show");
-					//location.reload(); 
-				} 
-				else{
-					alert(data.mensagem);	
-				}
-			},	"json");
-			
-	}); 
-/*---------------|FIM DE EDITAR MATRICULA|------------------*/	
-
-	/*---------------|FUNCAO PARA EXCLUIR MATRICULA|---------------\
-	|												   				|
-	\--------------------------------------------------------------*/ 
-	
-	$(document.body).on("click",".exc_Mat", function(){
-		console.log("Click OK");
-		cod = $(this).data("reg");
-		$.post("../controller/sys_record_data.php", { 
-			acao: "excluir_matricula",
-			mat_id: cod			
-		},
-		function(data){
-			if(data.status=="OK"){
-				$("#confirma").modal('hide');
-				$("#agurade").modal('show');
-				location.reload();
-			}
-			else{
-				alert(data.message);
-			}
-		},
-		"json");
-	});
-/*---------------|FIM DE EXLUIR MATRICULA|------------------*/
-
-
-//-------------------------------------------------------------------------------------------------------------------------
-///////// FIM FUNÇÔES DE ENSINO //////////////////////////////////////////////////////////////////////////////////////////////////////||
-//=========================================================================================================================
 
 
 //---------------------------------------------------------------------------------------------------------------------------------
 /////////FIN DAS FUNÇÔES  /////////////////////////////////////////////////////////////////////////////////////////////||
 //=================================================================================================================================
+/*---------------|FIM DE EXLUIR MATRICULA|------------------*/
 });	

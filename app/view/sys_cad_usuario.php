@@ -225,39 +225,6 @@ if(($rs->fld("usu_cod") == $_SESSION['usu_cod']) OR ($_SESSION['classe'])==1){
 							<!-- /.row -->
 							
 							<div class="row">
-								<div class="form-group col-md-3">
-								  <label>#Sexo:</label><br> 
-									<input type="radio" class="minimal" value='M'  id="usu_sexo" name="usu_sexo" CHECKED/> Masculino<br>
-									<input type="radio" class="minimal" value='F'  id="usu_sexo" name="usu_sexo"/> Feminino<br>
-								</div>
-								<!-- /.col -->	
-								<div class="form-group col-md-2">
-								  <label>#Mail:</label><br> 
-									<input type="radio" class="minimal" value='1'  id="usu_pmail" name="usu_pmail" /> Sim<br>
-									<input type="radio" class="minimal" value='0'  id="usu_pmail" name="usu_pmail" CHECKED/> Não<br>
-								</div>
-								<!-- /.col -->	
-								<div class="form-group col-md-2">
-								  <label for="usu_pchat">#Chat:</label><br> 
-									<input type="radio" class="minimal" value='1'  id="usu_pchat" name="usu_pchat" /> Sim<br>											
-									<input type="radio" class="minimal" value='0'  id="usu_pchat" name="usu_pchat" CHECKED/> Não<br>
-								</div>	
-								<!-- /.col -->	
-								<div class="form-group col-md-2">
-								  <label for="usu_pchat">#Calend:</label><br> 
-									<input type="radio" class="minimal" value='1'  id="usu_pcalend" name="usu_pcalend" /> Sim<br>											
-									<input type="radio" class="minimal" value='0'  id="usu_pcalend" name="usu_pcalend" CHECKED/> Não<br>
-								</div>
-								<!-- /.col -->	
-								<div class="form-group col-md-2">
-								  <label for="usu_prel">#Rel:</label><br> 
-									<input type="radio" class="minimal" value='1'  id="usu_prel" name="usu_prel" /> Sim<br>											
-									<input type="radio" class="minimal" value='0'  id="usu_prel" name="usu_prel" CHECKED/> Não<br>
-								</div>	
-							</div>
-							<!-- /.row -->
-							
-							<div class="row">
 								<div id="formerros" class="clearfix" style="display:none;"> 
 									<div class="alert alert-danger alert-dismissible">
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -63,7 +63,7 @@ if(($rs->fld("usu_cod") == $_SESSION['usu_cod']) OR ($_SESSION['classe'])==1){
 								<!-- /.col --> 
 								<div class="col-sm-5">
 									<div class="form-group">
-									  <label for="emp_nome">#Raz&atilde;o social:</label>
+									  <label for="emp_nome">#Nome Fantasia:</label>
 										<div class="input-group">
 											<div class="input-group-prepend">
 											  <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
@@ -266,6 +266,20 @@ if(($rs->fld("usu_cod") == $_SESSION['usu_cod']) OR ($_SESSION['classe'])==1){
 									<!-- /.form-group -->
 								</div>
 								<!-- /.col -->
+								<div class="col-sm-2">
+									<div class="form-group">
+										<label>Data Fundação:</label>
+										<div class="input-group">
+											<div class="input-group date" id="calendario" data-target-input="nearest">
+												<div class="input-group-append" data-target="#calendario" data-toggle="datetimepicker">
+													<div class="input-group-text" ><i class="far fa-calendar-check"></i></div>
+												</div>
+												<input type="text" class="form-control data_br" name="emp_data" id="emp_data" value=""/>																												
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /.col -->
 							</div>
 							<!-- /.row --> 
 							
@@ -329,6 +343,12 @@ if(($rs->fld("usu_cod") == $_SESSION['usu_cod']) OR ($_SESSION['classe'])==1){
 <script src="<?=$hosted;?>/js/jmask.js"></script>
 <script src="<?=$hosted;?>/assets/plugins/moment/moment.min.js"></script>
 <script src="<?=$hosted;?>/assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<!-- date-range-picker -->
+<script src="<?=$hosted;?>/assets/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap color picker -->
+<script src="<?=$hosted;?>/assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="<?=$hosted;?>/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!--Chama o java script para mascara e cep -->
 <script src="<?=$hosted;?>/js/jcep.js"></script> 
 <!--Chama o java script -->
@@ -336,5 +356,40 @@ if(($rs->fld("usu_cod") == $_SESSION['usu_cod']) OR ($_SESSION['classe'])==1){
 <!-- Validation --> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
 <!-- <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
+<script>
+  $(function () {
+  
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+     $("#calendario").datetimepicker({
+       format: 'DD/MM/YYYY',
+       
+        pickTime: false,
+        pickSeconds: false,
+        pick12HourFormat: false  
+    })
+   
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    $('.my-colorpicker2').on('colorpickerChange', function(event) {
+      $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+    });
+
+    $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+
+  })
+</script>
 </body>
 </html>
