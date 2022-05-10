@@ -1,3 +1,21 @@
+# Acessar a aplicação Proposta
+
+* Clonar o repositorio https://github.com/elvis7t/teste-pratico-junior.git
+* Na pasta raiz executar 
+>_ docker-composer up -d
+
+* Acessar a aplicação em:
+http://127.0.0.1:85/view/login.php
+- Login: admin@suportegerencial 
+- Senha: Mudar@123
+
+* Acessar o Banco de Dados
+- http://localhost:8080/
+- Servidor: mysql
+- Utilizador: db_user
+- Senha: db_user_pass
+
+
 # Teste prático - Dev Junior
 
 ----------
