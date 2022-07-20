@@ -3,18 +3,12 @@
 ----------
 
 ## Introdução
-Este teste tem o objetivo de avaliar novos candidatos às vagas de desenvolvedores.
-
-## Objetivos
-- Conhecer sobre suas habilidades e sua maneira de trabalho.
-- Saber como trabalha com versionamento de código
+Este teste tem como objetivo avaliar  candidatos à vaga de desenvolvedor.
 
 ## Requisitos
 - Você deve utilizar o seguinte stack:
     - HTML, CSS, JS
-    - PHP ou NODE
-    - Composer 
-    - Caso prefira utilizar algum framework, utilize o Laravel
+    - NODE.JS
     - Banco de Dados (PostgreSQL)
 - Cadastro de usuários
     - Nome
@@ -41,7 +35,6 @@ Este teste tem o objetivo de avaliar novos candidatos às vagas de desenvolvedor
 - Editar os dados da empresa.
 - Deletar empresas a partir da tela de listagem ou de edição.
 
-
 ## O que avaliamos
 - Qualidade de código
 - Código limpo
@@ -52,17 +45,11 @@ Este teste tem o objetivo de avaliar novos candidatos às vagas de desenvolvedor
 - Organização e padrão de Commits
 
 ### Observações
-- Nunca realizamos Commit no main
 - Sinta-se à vontade para resolver da forma que achar melhor
-- Não tenha medo de comentários, se achar necessário comentar alguma parte ou explicar algo, faça.
-
+- Não tenha medo de comentários. Se achar necessário comentar alguma parte ou explicar algo, faça.
 
 ## Considerações
 - Seja criativo
-
-## Diferenciais:
-  - Docker
-  - AWS
 
 ## Entrega
 >**Você deve criar um fork do repositório no seu GitHub e subir seu código lá,**   
